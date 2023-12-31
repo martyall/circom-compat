@@ -3,6 +3,7 @@
 use ark_ff::{BigInteger, PrimeField};
 use ethers_core::types::U256;
 use num_traits::Zero;
+use serde::{Deserialize, Serialize};
 
 use ark_bn254::{Bn254, Fq, Fq2, Fr, G1Affine, G2Affine};
 use ark_serialize::CanonicalDeserialize;
@@ -17,7 +18,7 @@ impl From<&[Fr]> for Inputs {
     }
 }
 
-#[derive(Default, Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Default, Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct G1 {
     pub x: U256,
     pub y: U256,
@@ -52,7 +53,7 @@ impl From<&G1Affine> for G1 {
     }
 }
 
-#[derive(Default, Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Default, Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct G2 {
     pub x: [U256; 2],
     pub y: [U256; 2],
@@ -94,7 +95,7 @@ impl From<&G2Affine> for G2 {
     }
 }
 
-#[derive(Default, Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Default, Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Proof {
     pub a: G1,
     pub b: G2,
@@ -127,7 +128,7 @@ impl From<Proof> for ark_groth16::Proof<Bn254> {
     }
 }
 
-#[derive(Default, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Default, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct VerifyingKey {
     pub alpha1: G1,
     pub beta2: G2,
